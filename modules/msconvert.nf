@@ -22,7 +22,7 @@ process MSCONVERT {
     # replace the number of threads in the DIA-Umpire params file with the number of threads available to this task
     sed 's/Thread\s*=\s*[0-9]*/Thread = ${task.cpus}/' ${dia_umpire_params} > dia-umpire.updated.params
 
-    wine 'msconvert \
+    'wine msconvert \
         -v \
         --zlib \
         --mzML \
