@@ -12,7 +12,6 @@ process MSCONVERT {
 
     output:
         path("${raw_file.baseName}.mzML"), emit: mzml_file
-        path("dia-umpire.updated.params"), emit: dia_params_updated
 
     script:
 
