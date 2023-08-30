@@ -13,15 +13,15 @@ workflow get_mzmls {
 
     main:
 
-        if(params.quant_spectra_dir.contains("https://")) {
+        if(params.spectra_dir.contains("https://")) {
 
-            spectra_dirs_ch = Channel.from(params.quant_spectra_dir)
+            spectra_dirs_ch = Channel.from(params.spectra_dir)
                                     .splitText()               // split multiline input
                                     .map{ it.trim() }          // removing surrounding whitespace
                                     .filter{ it.length() > 0 } // skip empty lines
 
             // get raw files from panorama
-            PANORAMA_GET_RAW_FILE_LIST(spectra_dirs_ch, params.quant_spectra_glob)
+            PANORAMA_GET_RAW_FILE_LIST(spectra_dirs_ch, params.spectra_dir)
 
             placeholder_ch = PANORAMA_GET_RAW_FILE_LIST.out.raw_file_placeholders.transpose()
             PANORAMA_GET_RAW_FILE(placeholder_ch)
@@ -35,8 +35,8 @@ workflow get_mzmls {
 
         } else {
 
-            file_glob = params.quant_spectra_glob
-            spectra_dir = file(params.quant_spectra_dir, checkIfExists: true)
+            file_glob = params.spectra_glob
+            spectra_dir = file(params.spectra_dir, checkIfExists: true)
             data_files = file("$spectra_dir/${file_glob}")
 
             if(data_files.size() < 1) {
