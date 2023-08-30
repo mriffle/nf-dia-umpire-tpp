@@ -29,10 +29,12 @@ process MSCONVERT {
         --64 ${simasspectra} ${demultiplex_param} \
         --filter "peakPicking vendor msLevel=1-" \
         --filter "diaUmpire params=dia-umpire.updated.params" \
-        --filter "titleMaker <RunId>.<ScanNumber>.<ScanNumber>.<ChargeState> File:\"\"\"^<SourcePath^>\"\"\", NativeID:\"\"\"^<Id^>\"\"\" \
         ${raw_file}
 
     """
+
+    //         --filter "titleMaker <RunId>.<ScanNumber>.<ScanNumber>.<ChargeState> File:\"\"\"^<SourcePath^>\"\"\", NativeID:\"\"\"^<Id^>\"\"\" \
+
 
     stub:
     """
