@@ -69,7 +69,6 @@ workflow get_mzmls {
             } else {
                 dia_mzml_ch = MSCONVERT_FROM_RAW(
                     Channel.fromList(raw_files),
-                    dia_umpire_params,
                     params.msconvert.do_demultiplex,
                     params.msconvert.do_simasspectra
                 )
