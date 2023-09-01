@@ -48,9 +48,6 @@ process MSCONVERT_DIA_UMPIRE {
 
     script:
 
-    demultiplex_param = do_demultiplex ? '--filter "demultiplex  optimization=overlap_only massError=10.0ppm"' : ''
-    simasspectra = do_simasspectra ? '--simAsSpectra' : ''
-
     """
     # replace the number of threads in the DIA-Umpire params file with the number of threads available to this task
     sed 's/Thread\s*=\s*[0-9]*/Thread = ${task.cpus}/' ${dia_umpire_params} > dia-umpire.updated.params
@@ -63,5 +60,4 @@ process MSCONVERT_DIA_UMPIRE {
         --filter "titleMaker <RunId>.<ScanNumber>.<ScanNumber>.<ChargeState> File:\\"<SourcePath>\\", NativeID:\\"<Id>\\"" \
         ${dia_mzml_file}
     """
-
 }
