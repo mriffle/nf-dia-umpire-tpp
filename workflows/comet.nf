@@ -1,5 +1,4 @@
 // Modules
-include { MSCONVERT } from "../modules/msconvert"
 include { COMET } from "../modules/comet"
 include { ADD_FASTA_TO_COMET_PARAMS } from "../modules/add_fasta_to_comet_params"
 

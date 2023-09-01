@@ -1,7 +1,8 @@
 // modules
 include { PANORAMA_GET_RAW_FILE } from "../modules/panorama"
 include { PANORAMA_GET_RAW_FILE_LIST } from "../modules/panorama"
-include { MSCONVERT } from "../modules/msconvert"
+include { MSCONVERT_FROM_RAW } from "../modules/msconvert"
+include { MSCONVERT_DIA_UMPIRE } from "../modules/msconvert"
 
 workflow get_mzmls {
 
@@ -26,12 +27,17 @@ workflow get_mzmls {
             placeholder_ch = PANORAMA_GET_RAW_FILE_LIST.out.raw_file_placeholders.transpose()
             PANORAMA_GET_RAW_FILE(placeholder_ch)
             
-            mzml_ch = MSCONVERT(
+            dia_mzml_ch = MSCONVERT_FROM_RAW(
                 PANORAMA_GET_RAW_FILE.out.panorama_file,
-                dia_umpire_params,
                 params.msconvert.do_demultiplex,
                 params.msconvert.do_simasspectra
             )
+
+            mzml_ch = MSCONVERT_DIA_UMPIRE(
+                dia_mzml_ch,
+                dia_umpire_params
+            )
+            
 
         } else {
 
@@ -55,13 +61,21 @@ workflow get_mzmls {
             }
 
             if(mzml_files.size() > 0) {
-                    mzml_ch = Channel.fromList(mzml_files)
+                    dia_mzml_ch = Channel.fromList(mzml_files)
+                    mzml_ch = MSCONVERT_DIA_UMPIRE(
+                        dia_mzml_ch,
+                        dia_umpire_params
+                    )
             } else {
-                mzml_ch = MSCONVERT(
+                dia_mzml_ch = MSCONVERT_FROM_RAW(
                     Channel.fromList(raw_files),
-                    dia_umpire_params,
                     params.msconvert.do_demultiplex,
                     params.msconvert.do_simasspectra
+                )
+
+                mzml_ch = MSCONVERT_DIA_UMPIRE(
+                    dia_mzml_ch,
+                    dia_umpire_params
                 )
             }
         }
