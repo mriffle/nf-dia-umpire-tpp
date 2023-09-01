@@ -1,6 +1,7 @@
 process MSCONVERT {
     storeDir "${params.mzml_cache_directory}/${workflow.commitId}/${params.msconvert.do_demultiplex}/${params.msconvert.do_simasspectra}"
     label 'process_high'
+    label 'process_long'
     label 'error_retry'
     container 'chambm/pwiz-skyline-i-agree-to-the-vendor-licenses:3.0.23216-da81cda'
 
