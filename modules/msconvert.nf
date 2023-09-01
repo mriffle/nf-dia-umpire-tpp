@@ -53,7 +53,7 @@ process MSCONVERT_DIA_UMPIRE {
     sed 's/Thread\s*=\s*[0-9]*/Thread = ${task.cpus}/' ${dia_umpire_params} > dia-umpire.updated.params
 
     msconvert \
-        --outfile ${dia_mzml_file.baseName}.dia_umpire.mzML
+        --outfile ${dia_mzml_file.baseName}.dia_umpire.mzML \
         -v \
         --zlib \
         --mzML \
