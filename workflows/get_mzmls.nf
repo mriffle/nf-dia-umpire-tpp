@@ -67,7 +67,7 @@ workflow get_mzmls {
                         dia_umpire_params
                     )
             } else {
-                dia_mzml_ch = MSCONVERT(
+                dia_mzml_ch = MSCONVERT_FROM_RAW(
                     Channel.fromList(raw_files),
                     dia_umpire_params,
                     params.msconvert.do_demultiplex,
