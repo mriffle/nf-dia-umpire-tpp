@@ -37,17 +37,14 @@ process TPP {
         exit 1
     fi
 
-    PeptideProphetParser interact.pep.xml MAXTHREADS=${task.cpus} MINPROB=0.1 NONPARAM BANDWIDTHX=2 CLEVEL=1 PPM ACCMASS NONPARAM ONEFVAL VMC EXPECTSCORE DECOY=\$DECOY_PREFIX \
+    PeptideProphetParser interact.pep.xml MAXTHREADS=${task.cpus} ${params.peptide_prophet_params} DECOY=\$DECOY_PREFIX \
     > >(tee "PeptideProphetParser.stdout") 2> >(tee "PeptideProphetParser.stderr" >&2)
 
     # running ptmprophet command
     PTMProphetParser \
-       FRAGPPMTOL=50 \
-       C:57.02146,MWFHCP:15.9949,H:22.03197,K:14.96328,K:-1.031634,KHC:156.11503,K:138.104465,K:54.010565,C:47.984744 \
-       STATIC \
-       NOSTACK \
+       ${params.ptm_prophet_mods} \
        MAXTHREADS=${task.cpus} \
-       MINPROB=0.1 \
+       ${params.ptm_prophet_params} \
        interact.pep.xml \
        interact.ptm.pep.xml \
        > >(tee "PTMProphetParser.stdout") 2> >(tee "PTMProphetParser.stderr" >&2)
