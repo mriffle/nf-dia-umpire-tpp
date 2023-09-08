@@ -1,9 +1,7 @@
 // Modules
 include { COMET } from "../modules/comet"
 include { ADD_FASTA_TO_COMET_PARAMS } from "../modules/add_fasta_to_comet_params"
-include { TPP_PEPTIDE_PROPHET } from "../modules/tpp"
-include { TPP_PTM_PROPHET } from "../modules/tpp"
-include { TPP_INTER_PROPHET } from "../modules/tpp"
+include { TPP } from "../modules/tpp"
 
 workflow wf_comet_tpp {
 
@@ -21,8 +19,5 @@ workflow wf_comet_tpp {
 
         COMET(mzml_file_ch, new_comet_params, fasta)
 
-        TPP_PEPTIDE_PROPHET(COMET.out.pepxml.collect(), fasta, decoy_prefix)
-        TPP_PTM_PROPHET(TPP_PEPTIDE_PROPHET.out.peptide_prophet_pepxml_file, mzml_file_ch.collect())
-        TPP_INTER_PROPHET(TPP_PTM_PROPHET.out.ptm_prophet_pepxml_file)
-
+        TPP(COMET.out.pepxml.collect(), fasta, decoy_prefix, mzml_file_ch.collect())
 }
