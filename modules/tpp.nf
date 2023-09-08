@@ -29,7 +29,7 @@ process TPP {
     > >(tee "RefreshParser.stdout") 2> >(tee "RefreshParser.stderr" >&2)
     
     # get the decoy prefix from the comet params file
-    export DECOY_PREFIX=$(grep -oP 'decoy_prefix\s*=\s*\K\w+' comet_params_file)
+    export DECOY_PREFIX=\$(grep -oP 'decoy_prefix\s*=\s*\K\w+' comet_params_file)
 
     PeptideProphetParser interact.pep.xml MAXTHREADS=${task.cpus} MINPROB=0.1 NONPARAM BANDWIDTHX=2 CLEVEL=1 PPM ACCMASS NONPARAM ONEFVAL VMC EXPECTSCORE DECOY=\$DECOY_PREFIX \
     > >(tee "PeptideProphetParser.stdout") 2> >(tee "PeptideProphetParser.stderr" >&2)
