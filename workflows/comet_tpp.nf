@@ -2,6 +2,8 @@
 include { COMET } from "../modules/comet"
 include { ADD_FASTA_TO_COMET_PARAMS } from "../modules/add_fasta_to_comet_params"
 include { TPP } from "../modules/tpp"
+include { UPLOAD_TO_LIMELIGHT } FROM "../modules/limelight_upload"
+include { CONVERT_TO_LIMELIGHT_XML } FROM "../modules/limelight_xml_convert"
 
 workflow wf_comet_tpp {
 
