@@ -8,6 +8,9 @@ process TPP {
         path fasta_file
         path mzml_files
         path comet_params_file
+        val peptide_prophet_params
+        val ptm_prophet_mods
+        val ptm_prophet_params
 
     output:
         path("interact.pep.xml"), emit: peptide_prophet_pepxml_file
@@ -37,14 +40,14 @@ process TPP {
         exit 1
     fi
 
-    PeptideProphetParser interact.pep.xml MAXTHREADS=${task.cpus} ${params.peptide_prophet_params} DECOY=\$DECOY_PREFIX \
+    PeptideProphetParser interact.pep.xml MAXTHREADS=${task.cpus} ${peptide_prophet_params} DECOY=\$DECOY_PREFIX \
     > >(tee "PeptideProphetParser.stdout") 2> >(tee "PeptideProphetParser.stderr" >&2)
 
     # running ptmprophet command
     PTMProphetParser \
-       ${params.ptm_prophet_mods} \
+       ${ptm_prophet_mods} \
        MAXTHREADS=${task.cpus} \
-       ${params.ptm_prophet_params} \
+       ${ptm_prophet_params} \
        interact.pep.xml \
        interact.ptm.pep.xml \
        > >(tee "PTMProphetParser.stdout") 2> >(tee "PTMProphetParser.stderr" >&2)

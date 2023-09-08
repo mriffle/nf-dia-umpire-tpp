@@ -11,7 +11,7 @@ include { PANORAMA_GET_RAW_FILE_LIST } from "./modules/panorama"
 // Sub workflows
 include { get_input_files } from "./workflows/get_input_files"
 include { get_mzmls } from "./workflows/get_mzmls"
-include { wf_comet_tpp } from "./workflows/comet"
+include { wf_comet_tpp } from "./workflows/comet_tpp"
 
 //
 // The main workflow
@@ -27,7 +27,15 @@ workflow {
     umpire_params = get_input_files.out.umpire_params
     mzml_ch = get_mzmls.out.mzml_ch
 
-    wf_comet_tpp(mzml_ch, comet_params, umpire_params, fasta)
+    wf_comet_tpp(
+        mzml_ch,
+        comet_params,
+        umpire_params,
+        fasta,
+        peptide_prophet_params,
+        ptm_prophet_mods,
+        ptm_prophet_params
+    )
 }
 
 //

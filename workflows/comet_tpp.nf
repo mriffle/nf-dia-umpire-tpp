@@ -10,6 +10,9 @@ workflow wf_comet_tpp {
         comet_params
         umpire_params
         fasta
+        peptide_prophet_params
+        ptm_prophet_mods
+        ptm_prophet_params
     
     main:
 
@@ -18,5 +21,13 @@ workflow wf_comet_tpp {
 
         COMET(mzml_file_ch, new_comet_params, fasta)
 
-        TPP(COMET.out.pepxml.collect(), fasta, mzml_file_ch.collect(), comet_params)
+        TPP(
+            COMET.out.pepxml.collect(), 
+            fasta, 
+            mzml_file_ch.collect(), 
+            comet_params,
+            peptide_prophet_params,
+            ptm_prophet_mods,
+            ptm_prophet_params
+        )
 }
