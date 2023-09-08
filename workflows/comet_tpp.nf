@@ -36,7 +36,7 @@ workflow wf_comet_tpp {
         if (params.limelight_upload) {
 
             CONVERT_TO_LIMELIGHT_XML(
-                COMET.out.pepxml.collect(), 
+                TPP.out.inter_prophet_pepxml_file, 
                 fasta, 
                 comet_params
             )
