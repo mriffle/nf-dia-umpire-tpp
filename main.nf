@@ -32,9 +32,9 @@ workflow {
         comet_params,
         umpire_params,
         fasta,
-        peptide_prophet_params,
-        ptm_prophet_mods,
-        ptm_prophet_params
+        params.peptide_prophet_params,
+        params.ptm_prophet_mods,
+        params.ptm_prophet_params
     )
 }
 
