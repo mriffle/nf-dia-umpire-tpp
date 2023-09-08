@@ -12,8 +12,8 @@ process TPP {
 
     output:
         path("interact.pep.xml"), emit: peptide_prophet_pepxml_file
-        path("interact.ptm.pep.xml"), emit: peptide_prophet_pepxml_file
-        path("interact.ipro.ptm.pep.xml"), emit: peptide_prophet_pepxml_file
+        path("interact.ptm.pep.xml"), emit: ptm_prophet_pepxml_file
+        path("interact.ipro.ptm.pep.xml"), emit: inter_prophet_pepxml_file
         path("*.stdout"), emit: stdout
         path("*.stderr"), emit: stderr
 
