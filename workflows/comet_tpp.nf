@@ -30,4 +30,25 @@ workflow wf_comet_tpp {
             ptm_prophet_mods,
             ptm_prophet_params
         )
+
+        if (params.limelight_upload) {
+
+            CONVERT_TO_LIMELIGHT_XML(
+                COMET.out.pepxml.collect(), 
+                fasta, 
+                comet_params
+            )
+
+            UPLOAD_TO_LIMELIGHT(
+                CONVERT_TO_LIMELIGHT_XML.out.limelight_xml,
+                mzml_file_ch.collect(),
+                fasta,
+                params.limelight_webapp_url,
+                params.limelight_project_id,
+                params.limelight_search_description,
+                params.limelight_search_short_name,
+                params.limelight_tags,
+            )
+        }
+
 }

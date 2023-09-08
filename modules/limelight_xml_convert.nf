@@ -1,17 +1,16 @@
 def exec_java_command(mem) {
     def xmx = "-Xmx${mem.toGiga()-1}G"
-    return "java -Djava.aws.headless=true ${xmx} -jar /usr/local/bin/cometPercolator2LimelightXML.jar"
+    return "java -Djava.aws.headless=true ${xmx} -jar /usr/local/bin/cometTPP2LimelightXML.jar"
 }
 
 process CONVERT_TO_LIMELIGHT_XML {
     publishDir "${params.result_dir}/limelight", failOnError: true, mode: 'copy'
     label 'process_low'
     label 'process_high_memory'
-    container 'mriffle/comet-percolator-to-limelight:2.7.6'
+    container 'mriffle/comet-tpp-to-limelight:2.7.2'
 
     input:
         path pepxml
-        path pout
         path fasta
         path comet_params
 
@@ -26,8 +25,7 @@ process CONVERT_TO_LIMELIGHT_XML {
         ${exec_java_command(task.memory)} \
         -c ${comet_params} \
         -f ${fasta} \
-        -p ${pout} \
-        -d . \
+        -p ${pepxml} \
         -o results.limelight.xml \
         -v \
         > >(tee "limelight-xml-convert.stdout") 2> >(tee "limelight-xml-convert.stderr" >&2)
