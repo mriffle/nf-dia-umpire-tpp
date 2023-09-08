@@ -38,6 +38,7 @@ process TPP_PTM_PROPHET {
 
     input:
         path peptide_prophet_pepxml_file        
+        path mzml_files
 
     output:
         path("interact.ptm.pep.xml"), emit: ptm_prophet_pepxml_file
@@ -68,7 +69,6 @@ process TPP_INTER_PROPHET {
 
     input:
         path ptm_prophet_pepxml_file
-        path mzml_files
 
     output:
         path("interact.ipro.ptm.pep.xml"), emit: inter_prophet_pepxml_file
