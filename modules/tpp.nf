@@ -67,7 +67,8 @@ process TPP_INTER_PROPHET {
     container 'spctools/tpp:version6.2.0'
 
     input:
-        path ptm_prophet_pepxml_file        
+        path ptm_prophet_pepxml_file
+        path mzml_files
 
     output:
         path("interact.ipro.ptm.pep.xml"), emit: inter_prophet_pepxml_file

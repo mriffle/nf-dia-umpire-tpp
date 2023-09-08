@@ -22,7 +22,7 @@ workflow wf_comet_tpp {
         COMET(mzml_file_ch, new_comet_params, fasta)
 
         TPP_PEPTIDE_PROPHET(COMET.out.pepxml.collect(), fasta, decoy_prefix)
-        TPP_PTM_PROPHET(TPP_PEPTIDE_PROPHET.out.peptide_prophet_pepxml_file)
+        TPP_PTM_PROPHET(TPP_PEPTIDE_PROPHET.out.peptide_prophet_pepxml_file, mzml_file_ch.collect())
         TPP_INTER_PROPHET(TPP_PTM_PROPHET.out.ptm_prophet_pepxml_file)
 
 }
