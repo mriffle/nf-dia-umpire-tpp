@@ -10,7 +10,6 @@ workflow wf_comet_tpp {
         comet_params
         umpire_params
         fasta
-        decoy_prefix
     
     main:
 
@@ -19,5 +18,5 @@ workflow wf_comet_tpp {
 
         COMET(mzml_file_ch, new_comet_params, fasta)
 
-        TPP(COMET.out.pepxml.collect(), fasta, decoy_prefix, mzml_file_ch.collect())
+        TPP(COMET.out.pepxml.collect(), fasta, mzml_file_ch.collect(), comet_params)
 }

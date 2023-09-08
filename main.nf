@@ -27,8 +27,7 @@ workflow {
     umpire_params = get_input_files.out.umpire_params
     mzml_ch = get_mzmls.out.mzml_ch
 
-    wf_comet_tpp(mzml_ch, comet_params, umpire_params, fasta, params.decoy_prefix)
-
+    wf_comet_tpp(mzml_ch, comet_params, umpire_params, fasta)
 }
 
 //
