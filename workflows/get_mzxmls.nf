@@ -2,15 +2,11 @@
 include { PANORAMA_GET_RAW_FILE } from "../modules/panorama"
 include { PANORAMA_GET_RAW_FILE_LIST } from "../modules/panorama"
 include { MSCONVERT_FROM_RAW } from "../modules/msconvert"
-include { MSCONVERT_DIA_UMPIRE } from "../modules/msconvert"
 
-workflow get_mzmls {
-
-    take:
-        dia_umpire_params
+workflow get_mzxmls {
 
     emit:
-       mzml_ch
+       mzxml_ch
 
     main:
 
@@ -27,15 +23,10 @@ workflow get_mzmls {
             placeholder_ch = PANORAMA_GET_RAW_FILE_LIST.out.raw_file_placeholders.transpose()
             PANORAMA_GET_RAW_FILE(placeholder_ch)
             
-            dia_mzml_ch = MSCONVERT_FROM_RAW(
+            mzxml_ch = MSCONVERT_FROM_RAW(
                 PANORAMA_GET_RAW_FILE.out.panorama_file,
                 params.msconvert.do_demultiplex,
                 params.msconvert.do_simasspectra
-            )
-
-            mzml_ch = MSCONVERT_DIA_UMPIRE(
-                dia_mzml_ch,
-                dia_umpire_params
             )
             
 
@@ -49,34 +40,17 @@ workflow get_mzmls {
                 error "No files found for: $spectra_dir/${file_glob}"
             }
 
-            mzml_files = data_files.findAll { it.name.endsWith('.mzML') }
             raw_files = data_files.findAll { it.name.endsWith('.raw') }
 
-            if(mzml_files.size() < 1 && raw_files.size() < 1) {
-                error "No raw or mzML files found in: $spectra_dir"
+            if(raw_files.size() < 1) {
+                error "No raw files found in: $spectra_dir"
             }
 
-            if(mzml_files.size() > 0 && raw_files.size() > 0) {
-                error "Matched raw files and mzML files for: $spectra_dir/${file_glob}. Please choose a file matching string that will only match one or the other."
-            }
-
-            if(mzml_files.size() > 0) {
-                    dia_mzml_ch = Channel.fromList(mzml_files)
-                    mzml_ch = MSCONVERT_DIA_UMPIRE(
-                        dia_mzml_ch,
-                        dia_umpire_params
-                    )
-            } else {
-                dia_mzml_ch = MSCONVERT_FROM_RAW(
+            mzxml_ch = MSCONVERT_FROM_RAW(
                     Channel.fromList(raw_files),
                     params.msconvert.do_demultiplex,
                     params.msconvert.do_simasspectra
-                )
+            )
 
-                mzml_ch = MSCONVERT_DIA_UMPIRE(
-                    dia_mzml_ch,
-                    dia_umpire_params
-                )
-            }
         }
 }
