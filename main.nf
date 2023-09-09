@@ -27,7 +27,7 @@ workflow {
     umpire_params = get_input_files.out.umpire_params
     mzxml_ch = get_mzxmls.out.mzxml_ch
 
-    dia_umpire_wf_comet_tpp(
+    wf_dia_umpire_comet_tpp(
         mzxml_ch,
         comet_params,
         umpire_params,
