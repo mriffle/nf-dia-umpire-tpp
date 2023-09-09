@@ -34,12 +34,15 @@ process MSCONVERT_FROM_MGF {
     container 'quay.io/protio/msconvert_linux:3.0.23240'
 
     input:
-        each path(mgf_file)
+        path mgf_file
 
     output:
         path("${mgf_file.baseName}.mzXML"), emit: mzxml_file
 
     script:
+
+    println(mgf_file)
+
     """
     msconvert \
         -v \
