@@ -22,7 +22,7 @@ process DIA_UMPIRE {
     script:
     """
     # replace the number of threads in the DIA-Umpire params file with the number of threads available to this task
-    sed 's/Thread\s*=\s*[0-9]*/Thread = ${task.cpus}/' ${dia_umpire_params} > dia-umpire.updated.params
+    sed 's/Thread\s*=\s*[0-9]*/Thread = ${task.cpus}/' ${umpire_params_file} > dia-umpire.updated.params
 
     echo "Running DIA-Umpire..."
     
