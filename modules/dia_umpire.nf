@@ -13,9 +13,9 @@ process DIA_UMPIRE {
         path umpire_params_file
 
     output:
-        path("${mzxml_file.baseName}_Q1.mgf"), emit: q1_mgf_files
-        path("${mzxml_file.baseName}_Q2.mgf"), emit: q2_mgf_files
-        path("${mzxml_file.baseName}_Q3.mgf"), emit: q3_mgf_files
+        path("${mzxml_file.baseName}_Q1.mgf"), emit: q1_mgf_file
+        path("${mzxml_file.baseName}_Q2.mgf"), emit: q2_mgf_file
+        path("${mzxml_file.baseName}_Q3.mgf"), emit: q3_mgf_file
         path("*.stdout"), emit: stdout
         path("*.stderr"), emit: stderr
 
