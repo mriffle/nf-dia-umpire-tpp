@@ -41,8 +41,6 @@ process MSCONVERT_FROM_MGF {
 
     script:
 
-    println(mgf_file)
-
     """
     msconvert \
         -v \
