@@ -28,7 +28,7 @@ workflow wf_dia_umpire_comet_tpp {
         combined_mgf_channel = DIA_UMPIRE.out.q1_mgf_files
                                 .merge(DIA_UMPIRE.out.q2_mgf_files)
                                 .merge(DIA_UMPIRE.out.q3_mgf_files)
-        MSCONVERT_FROM_MGF(combined_mgf_channel)
+        MSCONVERT_FROM_MGF(Channel.fromList(combined_mgf_channel))
 
         // run comet
         dda_like_mzxml_file_ch = MSCONVERT_FROM_MGF.out.mzxml_file
