@@ -25,7 +25,11 @@ workflow wf_dia_umpire_comet_tpp {
 
         // run DIA-Umpire
         DIA_UMPIRE(mzxml_file_ch, umpire_params)
-        MSCONVERT_FROM_MGF(DIA_UMPIRE.out.mgf_files)
+        combined_mgf_channel = DIA_UMPIRE.out.q1_mgf_file
+                                .concat(DIA_UMPIRE.out.q2_mgf_file)
+                                .concat(DIA_UMPIRE.out.q3_mgf_file)
+
+        MSCONVERT_FROM_MGF(combined_mgf_channel)
 
         // run comet
         dda_like_mzxml_file_ch = MSCONVERT_FROM_MGF.out.mzxml_file
