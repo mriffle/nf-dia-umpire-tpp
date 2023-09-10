@@ -46,6 +46,7 @@ process MSCONVERT_FROM_MGF {
         -v \
         --zlib \
         --mzXML \
+        --64 \
         ${mgf_file}
     """
 }
